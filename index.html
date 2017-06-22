@@ -17,5 +17,15 @@
   </head>
   <body>
     <appian-action id="action" processmodeluuid="0002dd33-4be5-8000-f92f-7f0000014e7a"></appian-action>
+    <script>
+      document.getElementById('action').addEventListener(
+        "submit",
+        function(event) {
+          console.log('Hello!!!!!!!!!!!!!!!');
+          window.alert('Hello!!!!!!!!!!!!!!!');
+        },
+        false
+      );
+    </script>
   </body>
 </html>
