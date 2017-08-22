@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      .hidden {
+        display: none;
+      }
+
+      .errorText {
+        color: #888888;
+        font-family: arial;
+        font-size: 13px;
+        font-style: italic;
+      }
+
+      .actionitem {
+        margin-left: 5px;
+      }
+    </style>
+
+    <script>
+      function updateActionItems() {
+        hide('action-item-error');
+        var actionItemContainer = document.getElementById('action-item-container');
+        while (actionItemContainer.lastChild) {
+          actionItemContainer.removeChild(actionItemContainer.lastChild);
+        }
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function() { 
+          if (request.readyState == 4) {
+            if (request.status == 200) {
+              var actionItems = JSON.parse(request.responseText);
+              if (actionItems.error) {
+                show('action-item-error');
+              } else {
+                for (var actionItem in actionItems) {
+                  var actionItemElement = document.createElement('span');
+                  actionItemElement.className = 'actionItem';
+                  actionItemElement.innerText = actionItem.assignee + ' - ' + actionItem.title + ' (' + actionItem.date + ')';
+                  actionItemContainer.appendChild(actionItemElement);
+                }
+              }
+            } else {
+              show('action-item-error');
+            }
+          }
+        };
+        request.open("GET", "https://homedev.appiancloud.com/suite/webapi/action-items", true);
+        request.send(null);
+      }
+
+      function show(id) {
+        var element = document.getElementById(id);
+        element.className = element.className.replace(' hidden', '');
+      }
+
+      function hide(id) {
+        var element = document.getElementById(id);
+        element.className = (element.className.replace(' hidden', '') + ' hidden');
+      }
+
+      function initialize() {
+        updateActionItems();
+        // no reason to filter messages for intent since there will be no others targeting this frame
+        window.addEventListener('message', updateActionItems, true);
+      }
+    </script>
+  </head>
+  <body onload="initialize();">
+    <div id="action-item-error" class="hidden">
+      <span class="errorText">
+        Failed to retrieve Action Items from Home. Please ensure you are authenticated to Home.
+      </span>
+    </div>
+    <div id="action-item-container"></div>
+  </body>
+</html>
