@@ -2,5 +2,15 @@
   <head></head>
   <body>
     <iframe id="action-items-inner-frame" src="https://daily.appianci.net/suite/webapi/action-items"></iframe>
+    <script>
+      function handleMessage(event) {
+        var frame = document.getElementById('action-items-inner-frame');
+        if (event.source !== frame.contentWindow) {
+          return;
+        }
+        window.parent.postMessage(event.data, '*');
+      }
+      window.addEventListener('message', handleMessage, true);
+    </script>
   </body>
 </html>
