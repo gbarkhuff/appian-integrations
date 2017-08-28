@@ -22,7 +22,7 @@
         }
         var newActionItemsHeight = JSON.parse(event.data).height;
         if (newActionItemsHeight) {
-          frame.style.height = newActionItemsHeight;
+          frame.style.height = newActionItemsHeight + 'px';
         }
         window.parent.postMessage(event.data, '*');
       }
