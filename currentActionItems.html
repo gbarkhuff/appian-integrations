@@ -24,7 +24,7 @@
         if (newActionItemsHeight) {
           frame.style.height = newActionItemsHeight + 'px';
         }
-        window.parent.postMessage(event.data, '*');
+        window.parent.postMessage(JSON.stringify({height: newActionItemsHeight}), '*');
       }
       window.addEventListener('message', handleMessage, true);
     </script>
