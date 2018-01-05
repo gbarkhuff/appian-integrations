@@ -1,0 +1,18 @@
+<html>
+  <head></head>
+  <body>
+    <textarea id='endpoint'>Enter endpoint URL here</textarea>
+    <button onclick='embed()'>Embed</button>
+    <script>
+      var frameId = 'frame';
+      function embed() {
+        var frame = document.getElementById(frameId);
+        frame && frame.remove();
+        frame = document.createElement('iframe');
+        frame.id = frameId;
+        frame.src = document.getElementById('endpoint').value;
+        document.body.appendChild(frame);
+      }
+    </script>
+  </body>
+</html>
