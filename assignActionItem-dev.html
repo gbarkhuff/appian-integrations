@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script src="https://homedev.appiancloud.com/suite/tempo/ui/sail-client/embeddedBootstrap.nocache.js" id="appianEmbedded"></script>
+    <style>
+      #authModalContainer .EmbeddedAuthModal---embeddedAuthModal .EmbeddedAuthModal---modal_heading {
+        display: none !important;
+      }
+
+      #authModalContainer .EmbeddedAuthModal---embeddedAuthModal .EmbeddedAuthModal---modal_dialog {
+        margin-top: -85px !important;
+      }
+
+      #authModalContainer .EmbeddedAuthModal---embeddedAuthModal .EmbeddedAuthModal---modal_backdrop {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <appian-action id="action" processmodeluuid="0002dd33-4be5-8000-f92f-7f0000014e7a"></appian-action>
+    <script>
+      document.getElementById('action').addEventListener(
+        "submit",
+        function(event) {
+          window.parent.postMessage('form-submitted', '*');
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
